@@ -1,13 +1,11 @@
-import AuthLayout from './components/Auth/AuthLayout';
-import './styles/App.css'
-
-
+import "./styles/App.css";
+import AppRouter from "./AppRouter";
 const App = () => {
   return (
     <>
-      <AuthLayout />
+      <AppRouter />
     </>
   );
-}
+};
 
-export default App
+export default App;
