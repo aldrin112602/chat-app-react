@@ -2,6 +2,10 @@ import "./styles/styles.scss";
 import AppLogo from "../AppLogo";
 
 import { useState } from "react";
+
+import { Link } from "react-router-dom";
+
+
 const Register = () => {
   const [inputs, setInputs] = useState({});
 
@@ -53,7 +57,7 @@ const Register = () => {
         </div>
         <div className="input-container">
           <p>
-            Already have an account? <a href="./login">Login now</a>
+            Already have an account? <Link to="/login">Login</Link>
           </p>
         </div>
         <div className="input-container">

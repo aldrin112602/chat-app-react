@@ -2,6 +2,9 @@ import "./styles/styles.scss";
 import AppLogo from "../AppLogo";
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+
 const Login = () => {
   const [inputs, setInputs] = useState({});
 
@@ -43,7 +46,7 @@ const Login = () => {
         </div>
         <div className="input-container">
           <p>
-            Don't have an account? <a href="./signup">Signup now</a>
+            Don't have an account? <Link to="/signup">Signup</Link>
           </p>
         </div>
         <div className="input-container">
