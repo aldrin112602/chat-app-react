@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [inputs, setInputs] = useState({});
+  const [showLoginForm, setShowLoginForm] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,15 +21,16 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        if(data.length > 0) {
-          // const { id, username, fullname } = data[0];
+        if (data.length > 0) {
+          localStorage.setItem("user", JSON.stringify(data[0]));
+          setShowLoginForm(false);
+          Swal.fire({
+            title: "Success!",
+            text: "Login successfully",
+            icon: "success",
+            confirmButtonText: "Okay",
+          });
 
-         Swal.fire({
-           title: "Success!",
-           text: "Login successfully",
-           icon: "success",
-           confirmButtonText: "Okay",
-         });
         } else {
           //  Invalid username or password
           Swal.fire({
@@ -52,42 +54,45 @@ const Login = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  return (
-    <div className="form-container">
-      <form action="#" method="post" onSubmit={handleSubmit}>
-        <AppLogo />
-        <h2>Login Account</h2>
-        <div className="input-container">
-          <label>Enter Username</label>
-          <input
-            required
-            name="username"
-            type="text"
-            value={inputs.username || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-container">
-          <label>Enter Password</label>
-          <input
-            required
-            name="password"
-            type="password"
-            value={inputs.password || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-container">
-          <p>
-            Don't have an account? <Link to="/signup">Signup</Link>
-          </p>
-        </div>
-        <div className="input-container">
-          <button type="submit">Login</button>
-        </div>
-      </form>
-    </div>
-  );
+  if (!showLoginForm || localStorage.getItem("user")) {
+    return
+  };
+    return (
+      <div className="form-container">
+        <form action="#" method="post" onSubmit={handleSubmit}>
+          <AppLogo />
+          <h2>Login Account</h2>
+          <div className="input-container">
+            <label>Enter Username</label>
+            <input
+              required
+              name="username"
+              type="text"
+              value={inputs.username || ""}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <label>Enter Password</label>
+            <input
+              required
+              name="password"
+              type="password"
+              value={inputs.password || ""}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="input-container">
+            <p>
+              Don't have an account? <Link to="/signup">Signup</Link>
+            </p>
+          </div>
+          <div className="input-container">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    );
 };
 
 export default Login;
