@@ -1,5 +1,6 @@
 import "./styles/styles.scss";
 import AppLogo from "../AppLogo";
+import Swal from "sweetalert2";
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -19,7 +20,24 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log("Login successful: ", data);
+        if(data.length > 0) {
+          // const { id, username, fullname } = data[0];
+
+         Swal.fire({
+           title: "Success!",
+           text: "Login successfully",
+           icon: "success",
+           confirmButtonText: "Okay",
+         });
+        } else {
+          //  Invalid username or password
+          Swal.fire({
+            title: "Error!",
+            text: "Invalid username or password",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        }
       } else {
         console.error("Login failed");
       }

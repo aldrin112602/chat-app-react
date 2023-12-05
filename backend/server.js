@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mysql = require("mysql2");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
 const MYSQL_USERNAME = process.env.MYSQL_USERNAME || "root";
@@ -24,7 +25,9 @@ connection.connect((err) => {
   }
 });
 
+app.use(cors());
 app.use(express.json());
+
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
   connection.query(
@@ -41,7 +44,6 @@ app.post("/api/login", (req, res) => {
     }
   );
 });
-
 
 // Start the server
 app.listen(PORT, () => {

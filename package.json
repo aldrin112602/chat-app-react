@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql2": "^3.6.5",
     "react": "^18.2.0",
@@ -22,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "git:push": "git add . && git commit -m 'Miss_youuu_so_muchh_asawa_ko' && git push"
+    "git:push": "git add . && git commit -m Miss_youuu_so_muchh_asawa_ko && git push",
+    "server": "node backend/server.js"
   },
   "eslintConfig": {
     "extends": [
