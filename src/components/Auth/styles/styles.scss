@@ -36,17 +36,16 @@ div.form-container {
         padding: 30px;
         background-color: #fefefe;
         border-radius: 60px;
-        box-shadow: 2px 2px 10px #444;
+        box-shadow: 2px 2px 10px rgb(185, 182, 182);
         font-family: sans-serif;
 
         h2 {
-            padding-left: 10px;
             color: #444;
             margin-top: 20px;
         }
 
         .input-container {
-            padding: 10px;
+        margin-bottom: 5px;
 
             label {
                 display: block;
