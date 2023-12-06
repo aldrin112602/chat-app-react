@@ -1,6 +1,9 @@
+// import { useNavigate } from "react-router-dom";
 const Logout = () => {
-  localStorage.clear()
+  // const navigate = useNavigate();
+  localStorage.clear();
+  // navigate("/login");  
   return null;
-}
+};
 
-export default Logout
+export default Logout;

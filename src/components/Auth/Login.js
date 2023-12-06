@@ -2,11 +2,12 @@ import AppLogo from "../AppLogo";
 import Swal from "sweetalert2";
 import CustomRequest from "../../request/CustomRequest";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./styles/styles.scss";
+import { Link, useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [inputs, setInputs] = useState({});
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,12 @@ const Login = () => {
           text: "Login successfully",
           icon: "success",
           confirmButtonText: "Okay",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/home");
+          }
         });
+
       } else {
         // Invalid username or password
         Swal.fire({
@@ -50,37 +56,67 @@ const Login = () => {
     return;
   }
   return (
-    <div className="form-container">
-      <form action="#" method="post" onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center h-screen">
+      <form
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleSubmit}
+      >
         <AppLogo />
-        <h2>Login Account</h2>
-        <div className="input-container">
-          <label>Enter Username</label>
+
+        <h2 className="text-2xl font-bold mb-4 text-slate-800">
+          Login Account
+        </h2>
+
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
+          >
+            Enter Username
+          </label>
           <input
             required
             name="username"
+            className="shadow appearance-none border rounded w-full py-2 px-3 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             value={inputs.username || ""}
             onChange={handleChange}
           />
         </div>
-        <div className="input-container">
-          <label>Enter Password</label>
+
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Enter Password
+          </label>
           <input
             required
             name="password"
+            className="shadow appearance-none border rounded w-full py-2 px-3 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
             type="password"
             value={inputs.password || ""}
             onChange={handleChange}
           />
         </div>
-        <div className="input-container">
-          <p>
-            Don't have an account? <Link to="/signup">Signup</Link>
+
+        <div className="mb-4">
+          <p className="text-sm text-slate-900">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-blue-500">
+              Signup
+            </Link>
           </p>
         </div>
-        <div className="input-container">
-          <button type="submit">Login</button>
+
+        <div className="mb-6">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Login
+          </button>
         </div>
       </form>
     </div>

@@ -1,23 +1,24 @@
+import axios from "axios";
 
-const axios = require("axios").default;
-
-const CustomRequest = async ({ method = null, body = null, uri = null }) => {
+const CustomRequest = async ({ method, body, uri }) => {
   try {
-    const fullUrl = `http://localhost:5000${uri.startsWith("/") ? uri : '/' + uri }`;
-
+    const fullUrl = `http://localhost:5000${
+      uri.startsWith("/") ? uri : "/" + uri
+    }`;
+    let res = null;
     switch (method.trim().toLowerCase()) {
       case "get":
-        const getResponse = await axios.get(fullUrl);
-        return getResponse.data;
+        res = await axios.get(fullUrl);
+        return res.data;
       case "delete":
-        const deleteResponse = await axios.delete(fullUrl);
-        return deleteResponse.data;
+        res = await axios.delete(fullUrl);
+        return res.data;
       case "put":
-        const putResponse = await axios.put(fullUrl, body);
-        return putResponse.data;
+        res = await axios.put(fullUrl, body);
+        return res.data;
       case "post":
-        const postResponse = await axios.post(fullUrl, body);
-        return postResponse.data;
+        res = await axios.post(fullUrl, body);
+        return res.data;
       default:
         throw new Error(`Unsupported HTTP method: ${method}`);
     }

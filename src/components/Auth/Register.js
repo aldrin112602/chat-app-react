@@ -1,4 +1,4 @@
-import "./styles/styles.scss";
+
 import AppLogo from "../AppLogo";
 import Swal from "sweetalert2";
 
