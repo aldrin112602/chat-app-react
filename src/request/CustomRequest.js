@@ -1,14 +1,9 @@
-require("dotenv").config();
-const PORT = process.env.SERVER_PORT || 5000;
-const SERVER_DOMAIN_URI = process.env.SERVER_DOMAIN_URI;
+
 const axios = require("axios").default;
 
 const CustomRequest = async ({ method = null, body = null, uri = null }) => {
   try {
-    const baseUrl = SERVER_DOMAIN_URI.endsWith("/")
-      ? SERVER_DOMAIN_URI
-      : SERVER_DOMAIN_URI + "/";
-    const fullUrl = `${baseUrl}${PORT}${uri}`;
+    const fullUrl = `http://localhost:5000${uri.startsWith("/") ? uri : '/' + uri }`;
 
     switch (method.trim().toLowerCase()) {
       case "get":

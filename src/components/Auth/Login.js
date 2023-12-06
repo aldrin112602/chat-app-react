@@ -14,7 +14,7 @@ const Login = () => {
       const data = await CustomRequest({
         method: "post",
         body: inputs,
-        uri: "/api/login",
+        uri: "api/login",
       });
 
       if (data.length > 0) {
