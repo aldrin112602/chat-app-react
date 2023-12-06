@@ -4,7 +4,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 const MYSQL_USERNAME = process.env.MYSQL_USERNAME || "root";
 const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "";
 const DATABASE_NAME = process.env.DATABASE_NAME || "react_app_eme";
