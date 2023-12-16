@@ -25,7 +25,11 @@ const AppRouter = () => {
       )}
 
       {JSON.parse(localStorage.getItem("user")) && (
-        <Route path="/home" element={<Home />} />
+        <>
+          <Route path="/" element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+        </>
       )}
       <Route path="*" element={<NoPage />} />
     </Routes>
