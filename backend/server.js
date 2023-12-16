@@ -45,6 +45,23 @@ app.post("/api/login", (req, res) => {
   );
 });
 
+app.post("/api/register", (req, res) => {
+  const { username, password } = req.body;
+  connection.query(
+    "INSERT INTO users(username, password) VALUES (?, ?)",
+    [username, password],
+    (err, results) => {
+      if (err) {
+        res
+          .status(500)
+          .json({ error: "Internal Server Error", message: err.message });
+      } else {
+        res.status(201).json(results);
+      }
+    }
+  )
+})
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

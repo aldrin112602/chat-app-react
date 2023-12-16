@@ -1,52 +1,47 @@
-
 import AppLogo from "../AppLogo";
 import Swal from "sweetalert2";
-
+import CustomRequest from "../../request/CustomRequest";
 import { useState } from "react";
-
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  // Changed component name to Register
   const [inputs, setInputs] = useState({});
-
-  const [showRegisterForm, setShowRegisterForm] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputs),
+      // CustomRequest logic for registration
+      const data = await CustomRequest({
+        method: "post",
+        body: inputs,
+        uri: "api/register", // Assuming there is a registration endpoint
       });
-      if (response.ok) {
-        const data = await response.json();
-        if (data.length > 0) {
-          localStorage.setItem("user", JSON.stringify(data[0]));
-          setShowRegisterForm(false);
-          Swal.fire({
-            title: "Success!",
-            text: "Login successfully",
-            icon: "success",
-            confirmButtonText: "Okay",
-          });
-        } else {
-          //  Invalid username or password
-          Swal.fire({
-            title: "Error!",
-            text: "Invalid username or password",
-            icon: "error",
-            confirmButtonText: "Okay",
-          });
-        }
+
+      if (data) {
+        // Registration successful
+        Swal.fire({
+          title: "Success!",
+          text: "Registration successful",
+          icon: "success",
+          confirmButtonText: "Okay",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/login"); // Redirect to login page after successful registration
+          }
+        });
       } else {
-        console.error("Login failed");
+        // Registration failed
+        Swal.fire({
+          title: "Error!",
+          text: "Registration failed",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
       }
     } catch (error) {
-      console.error("Error during login: ", error.message);
+      console.error("Error during registration: ", error.message);
     }
   };
 
@@ -56,52 +51,74 @@ const Register = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  if (!showRegisterForm || localStorage.getItem("user")) {
-    return;
+  if (localStorage.getItem("user")) {
+    return null; 
   }
 
   return (
-    <div className="form-container">
-      <form action="#" method="post" onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center h-screen">
+      <form
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleSubmit}
+      >
         <AppLogo />
-        <h2>Create Account</h2>
-        <div className="input-container">
-          <label>Enter Full name</label>
-          <input
-            required
-            name="fullname"
-            type="text"
-            value={inputs.fullname || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="input-container">
-          <label>Enter Username</label>
+
+        <h2 className="text-2xl font-bold mb-4 text-slate-800">
+          Register Account {/* Updated heading */}
+        </h2>
+
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
+          >
+            Enter Username
+          </label>
           <input
             required
             name="username"
+            className="shadow appearance-none border rounded w-full py-2 px-3 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             value={inputs.username || ""}
             onChange={handleChange}
           />
         </div>
-        <div className="input-container">
-          <label>Enter Password</label>
+
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Enter Password
+          </label>
           <input
             required
             name="password"
+            className="shadow appearance-none border rounded w-full py-2 px-3 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
             type="password"
             value={inputs.password || ""}
             onChange={handleChange}
           />
         </div>
-        <div className="input-container">
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
+
+        {/* Additional registration fields can be added here if needed */}
+
+        <div className="mb-6">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Register {/* Updated button text */}
+          </button>
         </div>
-        <div className="input-container">
-          <button type="submit">Register</button>
+
+        <div className="mb-4">
+          <p className="text-sm text-slate-900">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500">
+              Login
+            </Link>
+          </p>
         </div>
       </form>
     </div>

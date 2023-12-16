@@ -10,7 +10,7 @@ root.render(
     <React.StrictMode>
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange
       >
