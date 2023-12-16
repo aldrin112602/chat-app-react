@@ -46,10 +46,10 @@ app.post("/api/login", (req, res) => {
 });
 
 app.post("/api/register", (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, fullname } = req.body;
   connection.query(
-    "INSERT INTO users(username, password) VALUES (?, ?)",
-    [username, password],
+    "INSERT INTO users(username, password, fullname) VALUES (?, ?, ?)",
+    [username, password, fullname],
     (err, results) => {
       if (err) {
         res

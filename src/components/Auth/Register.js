@@ -101,7 +101,22 @@ const Register = () => {
           />
         </div>
 
-        {/* Additional registration fields can be added here if needed */}
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="fullname"
+          >
+            Enter Fullname
+          </label>
+          <input
+            required
+            name="fullname"
+            className="shadow appearance-none border rounded w-full py-2 px-3 dark:text-white leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            value={inputs.fullname || ""}
+            onChange={handleChange}
+          />
+        </div>
 
         <div className="mb-6">
           <button
