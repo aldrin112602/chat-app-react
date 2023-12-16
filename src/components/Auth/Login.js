@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [inputs, setInputs] = useState({});
-  const [showLoginForm, setShowLoginForm] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +19,6 @@ const Login = () => {
 
       if (data.length > 0) {
         localStorage.setItem("user", JSON.stringify(data[0]));
-        setShowLoginForm(false);
         Swal.fire({
           title: "Success!",
           text: "Login successfully",
@@ -52,7 +50,7 @@ const Login = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  if (!showLoginForm || localStorage.getItem("user")) {
+  if (localStorage.getItem("user")) {
     return;
   }
   return (

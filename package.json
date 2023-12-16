@@ -34,7 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "git:push": "git add . && git commit -m Miss_youuu_so_muchh_asawa_ko && git push",
-    "serve": "node backend/server.js",
+    "serve": "nodemon backend/server.js",
     "tailwind-watch": "npx tailwindcss -i ./src/input.css -o ./src/styles/Tailwind.css --watch"
   },
   "eslintConfig": {
